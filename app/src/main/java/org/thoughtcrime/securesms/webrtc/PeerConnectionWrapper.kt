@@ -46,6 +46,8 @@ class PeerConnectionWrapper(private val context: Context,
     val readyForIce
         get() = peerConnection?.localDescription != null && peerConnection?.remoteDescription != null
 
+    private var isInitiator = false
+
     private fun initPeerConnection() {
         val random = SecureRandom().asKotlinRandom()
         val iceServers = listOf("freyr","fenrir","frigg","angus","hereford","holstein", "brahman").shuffled(random).take(2).map { sub ->
@@ -237,36 +239,6 @@ class PeerConnectionWrapper(private val context: Context,
         return SessionDescription(sessionDescription.type, updatedSdp)
     }
 
-    fun createNewOffer(mediaConstraints: MediaConstraints): SessionDescription {
-        val future = SettableFuture<SessionDescription>()
-
-        peerConnection!!.createOffer(object:SdpObserver {
-            override fun onCreateSuccess(sdp: SessionDescription?) {
-                future.set(sdp)
-            }
-
-            override fun onSetSuccess() {
-                throw AssertionError()
-            }
-
-            override fun onCreateFailure(p0: String?) {
-                future.setException(PeerConnectionException(p0))
-            }
-
-            override fun onSetFailure(p0: String?) {
-                throw AssertionError()
-            }
-        }, mediaConstraints)
-
-        try {
-            return correctSessionDescription(future.get())
-        } catch (e: InterruptedException) {
-            throw AssertionError()
-        } catch (e: ExecutionException) {
-            throw PeerConnectionException(e)
-        }
-    }
-
     fun createOffer(mediaConstraints: MediaConstraints): SessionDescription {
         val future = SettableFuture<SessionDescription>()
 
@@ -289,6 +261,7 @@ class PeerConnectionWrapper(private val context: Context,
         }, mediaConstraints)
 
         try {
+            isInitiator = true
             return correctSessionDescription(future.get())
         } catch (e: InterruptedException) {
             throw AssertionError()
@@ -362,4 +335,6 @@ class PeerConnectionWrapper(private val context: Context,
         peerConnection?.close()
         initPeerConnection()
     }
+
+    fun isInitiator(): Boolean = isInitiator
 }

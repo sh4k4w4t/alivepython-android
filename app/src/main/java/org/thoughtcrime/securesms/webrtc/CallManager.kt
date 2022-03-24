@@ -696,7 +696,7 @@ class CallManager(context: Context, audioManager: AudioManagerCompat, private va
         postConnectionEvent(Event.NetworkReconnect) {
             Log.d("Loki", "start re-establish")
 
-            val offer = connection.createNewOffer(MediaConstraints().apply {
+            val offer = connection.createOffer(MediaConstraints().apply {
                 mandatory.add(MediaConstraints.KeyValuePair("IceRestart", "true"))
             })
             connection.setLocalDescription(offer)
@@ -708,6 +708,8 @@ class CallManager(context: Context, audioManager: AudioManagerCompat, private va
     fun resetPeerConnection() {
         peerConnection?.resetPeerConnection()
     }
+
+    fun isInitiator(): Boolean = peerConnection?.isInitiator() == true
 
     interface WebRtcListener: PeerConnection.Observer {
         fun onHangup()

@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.media.AudioManager
-import android.net.ConnectivityManager
-import android.net.Network
 import android.os.IBinder
 import android.os.ResultReceiver
 import android.telephony.PhoneStateListener
@@ -192,7 +190,6 @@ class WebRtcCallService: Service(), CallManager.WebRtcListener {
     private var wantsToAnswer = false
     private var currentTimeouts = 0
     private var isNetworkAvailable = true
-    private var activeNetwork: Network? = null
     private var scheduledTimeout: ScheduledFuture<*>? = null
     private var scheduledReconnect: ScheduledFuture<*>? = null
 
@@ -218,7 +215,6 @@ class WebRtcCallService: Service(), CallManager.WebRtcListener {
         wantsToAnswer = false
         currentTimeouts = 0
         isNetworkAvailable = true
-        activeNetwork = null
         scheduledTimeout?.cancel(false)
         scheduledReconnect?.cancel(false)
         scheduledTimeout = null
@@ -248,7 +244,6 @@ class WebRtcCallService: Service(), CallManager.WebRtcListener {
                 callManager.recipient?.let { recipient ->
                     insertMissedCall(recipient, true)
                 }
-            } else {
             }
             terminate()
         }
@@ -693,7 +688,6 @@ class WebRtcCallService: Service(), CallManager.WebRtcListener {
         wantsToAnswer = false
         currentTimeouts = 0
         isNetworkAvailable = false
-        activeNetwork = null
         super.onDestroy()
     }
 
@@ -798,11 +792,6 @@ class WebRtcCallService: Service(), CallManager.WebRtcListener {
 
     override fun onSignalingChange(p0: PeerConnection.SignalingState?) {}
 
-    fun Context.getCurrentNetwork(): Network? {
-        val cm = this.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-        return cm.activeNetwork
-    }
-
     override fun onIceConnectionChange(newState: PeerConnection.IceConnectionState?) {
         newState?.let { state -> processIceConnectionChange(state) }
     }
@@ -814,7 +803,6 @@ class WebRtcCallService: Service(), CallManager.WebRtcListener {
                 scheduledReconnect?.cancel(false)
                 scheduledTimeout = null
                 scheduledReconnect = null
-                activeNetwork = getCurrentNetwork()
 
                 val intent = Intent(this, WebRtcCallService::class.java)
                     .setAction(ACTION_ICE_CONNECTED)
@@ -823,9 +811,8 @@ class WebRtcCallService: Service(), CallManager.WebRtcListener {
                 callManager.resetPeerConnection()
                 callManager.callId?.let { callId ->
                     callManager.postConnectionEvent(Event.IceDisconnect) {
-                        val currentNetwork = getCurrentNetwork()
                         callManager.postViewModelState(CallViewModel.State.CALL_RECONNECTING)
-                        if (activeNetwork != currentNetwork || currentNetwork == null) {
+                        if (callManager.isInitiator()) {
                             Log.i("Loki", "Starting reconnect timer")
                             scheduledReconnect = timeoutExecutor.schedule(CheckReconnectedRunnable(callId, this), RECONNECT_SECONDS, TimeUnit.SECONDS)
                         } else {

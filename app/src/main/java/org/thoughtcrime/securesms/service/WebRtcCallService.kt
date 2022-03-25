@@ -808,7 +808,6 @@ class WebRtcCallService: Service(), CallManager.WebRtcListener {
                     .setAction(ACTION_ICE_CONNECTED)
                 startService(intent)
             } else if (newState in arrayOf(FAILED, DISCONNECTED) && scheduledReconnect == null) {
-                callManager.resetPeerConnection()
                 callManager.callId?.let { callId ->
                     callManager.postConnectionEvent(Event.IceDisconnect) {
                         callManager.postViewModelState(CallViewModel.State.CALL_RECONNECTING)

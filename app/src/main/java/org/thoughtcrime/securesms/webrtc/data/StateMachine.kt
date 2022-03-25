@@ -69,7 +69,7 @@ sealed class Event(vararg val expectedStates: State, val outputState: State) {
     object ReceiveAnswer :
         Event(State.LocalRing, State.Reconnecting, outputState = State.Connecting)
 
-    object Connect : Event(State.Connecting, outputState = State.Connected)
+    object Connect : Event(State.Connecting, State.Reconnecting, outputState = State.Connected)
     object IceFailed : Event(State.Connecting, outputState = State.Disconnected)
     object IceDisconnect : Event(State.Connected, outputState = State.PendingReconnect)
     object NetworkReconnect : Event(State.PendingReconnect, outputState = State.Reconnecting)

@@ -331,10 +331,5 @@ class PeerConnectionWrapper(private val context: Context,
         cameraEventListener.onCameraSwitchCompleted(newCameraState)
     }
 
-    fun resetPeerConnection() {
-        peerConnection?.close()
-        initPeerConnection()
-    }
-
     fun isInitiator(): Boolean = isInitiator
 }

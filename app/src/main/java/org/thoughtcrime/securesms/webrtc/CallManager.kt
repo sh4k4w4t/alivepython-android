@@ -705,10 +705,6 @@ class CallManager(context: Context, audioManager: AudioManagerCompat, private va
         }
     }
 
-    fun resetPeerConnection() {
-        peerConnection?.resetPeerConnection()
-    }
-
     fun isInitiator(): Boolean = peerConnection?.isInitiator() == true
 
     interface WebRtcListener: PeerConnection.Observer {

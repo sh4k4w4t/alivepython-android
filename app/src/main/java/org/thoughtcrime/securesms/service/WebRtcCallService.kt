@@ -807,7 +807,7 @@ class WebRtcCallService: Service(), CallManager.WebRtcListener {
                 val intent = Intent(this, WebRtcCallService::class.java)
                     .setAction(ACTION_ICE_CONNECTED)
                 startService(intent)
-            } else if (newState in arrayOf(FAILED, DISCONNECTED) && scheduledReconnect == null) {
+            } else if (newState in arrayOf(FAILED, DISCONNECTED) && (scheduledReconnect == null && scheduledTimeout == null)) {
                 callManager.callId?.let { callId ->
                     callManager.postConnectionEvent(Event.IceDisconnect) {
                         callManager.postViewModelState(CallViewModel.State.CALL_RECONNECTING)

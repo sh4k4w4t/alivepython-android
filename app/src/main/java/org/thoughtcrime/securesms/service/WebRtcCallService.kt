@@ -546,7 +546,7 @@ class WebRtcCallService: Service(), CallManager.WebRtcListener {
     private fun handleResponseMessage(intent: Intent) {
         try {
             val recipient = getRemoteRecipient(intent)
-            if (callManager.isCurrentUser(recipient) && callManager.currentConnectionState in CallState.OUTGOING_STATES) {
+            if (callManager.isCurrentUser(recipient) && callManager.currentConnectionState in CallState.CAN_DECLINE_STATES) {
                 handleLocalHangup(intent)
                 return
             }

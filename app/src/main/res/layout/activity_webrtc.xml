@@ -9,6 +9,7 @@
 
     <FrameLayout
         android:id="@+id/remote_parent"
+        android:background="@color/black"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +32,35 @@
         app:layout_constraintVertical_bias="0.4"
         android:layout_width="@dimen/extra_large_profile_picture_size"
         android:layout_height="@dimen/extra_large_profile_picture_size"/>
+
+    <ImageView
+        android:id="@+id/back_arrow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/call_controls_background"
+        android:elevation="8dp"
+        android:layout_marginLeft="@dimen/small_spacing"
+        android:layout_marginTop="@dimen/small_spacing"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:scaleType="centerInside"
+        android:layout_width="@dimen/medium_profile_picture_size"
+        android:layout_height="@dimen/medium_profile_picture_size"
+        app:tint="@color/call_action_foreground" />
+
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/massive_spacing"
+        android:layout_marginTop="@dimen/medium_spacing"
+        android:textAlignment="center"
+        android:id="@+id/remote_recipient_name"
+        android:textStyle="bold"
+        tools:text="@tools:sample/full_names"
+        android:ellipsize="end"
+        android:textSize="20sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/remote_loading_view"
@@ -84,7 +114,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintDimensionRatio="h,9:16"
-        android:layout_margin="@dimen/large_spacing"
+        android:layout_marginHorizontal="@dimen/large_spacing"
+        android:layout_marginVertical="@dimen/massive_spacing"
         app:layout_constraintWidth_percent="0.2"
         android:layout_height="0dp"
         android:layout_width="0dp">

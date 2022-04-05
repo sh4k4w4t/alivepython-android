@@ -44,7 +44,6 @@ import org.thoughtcrime.securesms.webrtc.CallViewModel.State.CALL_RECONNECTING
 import org.thoughtcrime.securesms.webrtc.CallViewModel.State.CALL_RINGING
 import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager.AudioDevice.EARPIECE
 import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager.AudioDevice.SPEAKER_PHONE
-import org.thoughtcrime.securesms.webrtc.data.quadrantRotation
 
 @AndroidEntryPoint
 class WebRtcCallActivity : PassphraseRequiredActionBarActivity() {
@@ -76,7 +75,7 @@ class WebRtcCallActivity : PassphraseRequiredActionBarActivity() {
             override fun onOrientationChanged(orientation: Int) {
                 if ((orientation + 15) % 90 < 30) {
                     viewModel.deviceRotation = orientation
-                    updateControlsRotation(orientation.quadrantRotation() * -1)
+//                    updateControlsRotation(orientation.quadrantRotation() * -1)
                 }
             }
         }
@@ -178,6 +177,9 @@ class WebRtcCallActivity : PassphraseRequiredActionBarActivity() {
         binding.endCallButton.setOnClickListener {
             startService(WebRtcCallService.hangupIntent(this))
         }
+        binding.backArrow.setOnClickListener {
+            onBackPressed()
+        }
 
     }
 
@@ -273,6 +275,7 @@ class WebRtcCallActivity : PassphraseRequiredActionBarActivity() {
                         val avatar = (signalProfilePicture as? ProfileContactPhoto)?.avatarObject
                         val sizeInPX =
                             resources.getDimensionPixelSize(R.dimen.extra_large_profile_picture_size)
+                        binding.remoteRecipientName.text = displayName
                         if (signalProfilePicture != null && avatar != "0" && avatar != "") {
                             glide.clear(binding.remoteRecipient)
                             glide.load(signalProfilePicture)

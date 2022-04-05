@@ -46,6 +46,7 @@ import org.thoughtcrime.securesms.conversation.v2.utilities.NotificationUtils
 import org.thoughtcrime.securesms.dependencies.DatabaseComponent
 import org.thoughtcrime.securesms.groups.EditClosedGroupActivity
 import org.thoughtcrime.securesms.groups.EditClosedGroupActivity.Companion.groupIDKey
+import org.thoughtcrime.securesms.preferences.PrivacySettingsActivity
 import org.thoughtcrime.securesms.service.WebRtcCallService
 import org.thoughtcrime.securesms.util.BitmapUtil
 import org.thoughtcrime.securesms.util.getColorWithID
@@ -53,7 +54,14 @@ import java.io.IOException
 
 object ConversationMenuHelper {
     
-    fun onPrepareOptionsMenu(menu: Menu, inflater: MenuInflater, thread: Recipient, threadId: Long, isCallsEnabled: Boolean, context: Context, onOptionsItemSelected: (MenuItem) -> Unit) {
+    fun onPrepareOptionsMenu(
+        menu: Menu,
+        inflater: MenuInflater,
+        thread: Recipient,
+        threadId: Long,
+        context: Context,
+        onOptionsItemSelected: (MenuItem) -> Unit
+    ) {
         // Prepare
         menu.clear()
         val isOpenGroup = thread.isOpenGroupRecipient
@@ -102,7 +110,7 @@ object ConversationMenuHelper {
             inflater.inflate(R.menu.menu_conversation_notification_settings, menu)
         }
 
-        if (!thread.isGroupRecipient && isCallsEnabled) {
+        if (!thread.isGroupRecipient && thread.hasApprovedMe()) {
             inflater.inflate(R.menu.menu_conversation_call, menu)
         }
 
@@ -174,6 +182,21 @@ object ConversationMenuHelper {
     }
 
     private fun call(context: Context, thread: Recipient) {
+
+        if (!TextSecurePreferences.isCallNotificationsEnabled(context)) {
+            AlertDialog.Builder(context)
+                .setTitle(R.string.ConversationActivity_call_title)
+                .setMessage(R.string.ConversationActivity_call_prompt)
+                .setPositiveButton(R.string.activity_settings_title) { _, _ ->
+                    val intent = Intent(context, PrivacySettingsActivity::class.java)
+                    context.startActivity(intent)
+                }
+                .setNeutralButton(R.string.cancel) { d, _ ->
+                    d.dismiss()
+                }.show()
+            return
+        }
+
         val service = WebRtcCallService.createCall(context, thread)
         context.startService(service)
 

@@ -558,7 +558,13 @@ class ConversationActivityV2 : PassphraseRequiredActionBarActivity(), InputBarDe
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         if (!isMessageRequestThread()) {
-            ConversationMenuHelper.onPrepareOptionsMenu(menu, menuInflater, viewModel.recipient, viewModel.threadId, textSecurePreferences.isCallNotificationsEnabled(), this) { onOptionsItemSelected(it) }
+            ConversationMenuHelper.onPrepareOptionsMenu(
+                menu,
+                menuInflater,
+                viewModel.recipient,
+                viewModel.threadId,
+                this
+            ) { onOptionsItemSelected(it) }
         }
         super.onPrepareOptionsMenu(menu)
         return true

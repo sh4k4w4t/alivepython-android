@@ -893,6 +893,11 @@ interface TextSecurePreferences {
         }
 
         @JvmStatic
+        fun isCallNotificationsEnabled(context: Context): Boolean {
+            return getBooleanPreference(context, CALL_NOTIFICATIONS_ENABLED, false)
+        }
+
+        @JvmStatic
         fun setShownCallWarning(context: Context): Boolean {
             val previousValue = getBooleanPreference(context, SHOWN_CALL_WARNING, false)
             if (previousValue) {

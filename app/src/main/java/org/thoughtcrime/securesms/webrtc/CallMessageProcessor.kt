@@ -47,8 +47,10 @@ class CallMessageProcessor(private val context: Context, private val textSecureP
                         // first time call notification encountered
                         val notification = CallNotificationBuilder.getFirstCallNotification(context)
                         context.getSystemService(NotificationManager::class.java).notify(CallNotificationBuilder.WEBRTC_NOTIFICATION, notification)
+                        insertMissedCall(sender, sentTimestamp, isFirstCall = true)
+                    } else {
+                        insertMissedCall(sender, sentTimestamp)
                     }
-                    insertMissedCall(sender, sentTimestamp)
                     continue
                 }
                 when (nextMessage.type) {
@@ -63,10 +65,14 @@ class CallMessageProcessor(private val context: Context, private val textSecureP
         }
     }
 
-    private fun insertMissedCall(sender: String, sentTimestamp: Long) {
+    private fun insertMissedCall(sender: String, sentTimestamp: Long, isFirstCall: Boolean = false) {
         val currentUserPublicKey = storage.getUserPublicKey()
         if (sender == currentUserPublicKey) return // don't insert a "missed" due to call notifications disabled if it's our own sender
-        storage.insertCallMessage(sender, CallMessageType.CALL_MISSED, sentTimestamp)
+        if (isFirstCall) {
+            storage.insertCallMessage(sender, CallMessageType.CALL_FIRST_MISSED, sentTimestamp)
+        } else {
+            storage.insertCallMessage(sender, CallMessageType.CALL_MISSED, sentTimestamp)
+        }
     }
 
     private fun incomingHangup(callMessage: CallMessage) {

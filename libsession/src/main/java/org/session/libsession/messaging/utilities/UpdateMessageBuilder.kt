@@ -114,6 +114,8 @@ object UpdateMessageBuilder {
                 context.getString(R.string.MessageRecord_s_called_you, senderName)
             CallMessageType.CALL_OUTGOING ->
                 context.getString(R.string.MessageRecord_called_s, senderName)
+            CallMessageType.CALL_FIRST_MISSED ->
+                context.getString(R.string.MessageRecord_missed_call_from, senderName)
         }
     }
 }

@@ -1,12 +1,10 @@
 package org.thoughtcrime.securesms.conversation.v2.messages
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import network.loki.messenger.R
@@ -53,6 +51,7 @@ class ControlMessageView : LinearLayout {
                 val drawable = when {
                     message.isIncomingCall -> R.drawable.ic_incoming_call
                     message.isOutgoingCall -> R.drawable.ic_outgoing_call
+                    message.isFirstMissedCall -> R.drawable.ic_info_outline_light
                     else -> R.drawable.ic_missed_call
                 }
                 binding.iconImageView.setImageDrawable(ResourcesCompat.getDrawable(resources, drawable, context.theme))

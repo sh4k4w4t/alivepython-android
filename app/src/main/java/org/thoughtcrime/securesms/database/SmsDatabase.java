@@ -386,6 +386,9 @@ public class SmsDatabase extends MessagingDatabase {
         case CALL_MISSED:
           type |= Types.MISSED_CALL_TYPE;
           break;
+        case CALL_FIRST_MISSED:
+          type |= Types.FIRST_MISSED_CALL_TYPE;
+          break;
       }
     }
 

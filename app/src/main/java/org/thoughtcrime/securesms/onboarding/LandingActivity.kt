@@ -18,7 +18,7 @@ class LandingActivity : BaseActionBarActivity() {
         setContentView(binding.root)
         setUpActionBarSessionLogo(true)
         with(binding) {
-            fakeChatView.startAnimating()
+//            fakeChatView.startAnimating()
             registerButton.setOnClickListener { register() }
             restoreButton.setOnClickListener { restore() }
             linkButton.setOnClickListener { link() }

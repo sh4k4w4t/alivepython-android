@@ -647,9 +647,9 @@
     <string name="cancel">Cancel</string>
     <string name="your_session_id">Your Session ID</string>
 
-    <string name="activity_landing_title_2">Your Session begins here...</string>
-    <string name="activity_landing_register_button_title">Create Session ID</string>
-    <string name="activity_landing_restore_button_title">Continue Your Session</string>
+    <string name="activity_landing_title_2">Welcome to AnonChain Messenger</string>
+    <string name="activity_landing_register_button_title">Create AnonChain Account</string>
+    <string name="activity_landing_restore_button_title">Continue Your AnonChain Account</string>
 
     <string name="view_fake_chat_bubble_1">What\'s Session?</string>
     <string name="view_fake_chat_bubble_2">It\'s a decentralized, encrypted messaging app</string>
@@ -820,7 +820,7 @@
     <string name="activity_backup_restore_passphrase">30-digit passphrase</string>
 
     <string name="activity_link_device_skip_prompt">This is taking a while, would you like to skip?</string>
-    <string name="activity_link_device_link_device">Link a Device</string>
+    <string name="activity_link_device_link_device">Link With Another Device</string>
     <string name="activity_link_device_recovery_phrase">Recovery Phrase</string>
     <string name="activity_link_device_scan_qr_code">Scan QR Code</string>
     <string name="activity_link_device_qr_message">Navigate to Settings → Recovery Phrase on your other device to show your QR code.</string>

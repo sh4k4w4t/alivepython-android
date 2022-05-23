@@ -80,7 +80,7 @@
                     android:paddingEnd="0dp"
                     android:drawableEnd="@drawable/ic_baseline_edit_24"
                     android:drawablePadding="@dimen/small_spacing"
-                    tools:text="SomeGroupName"/>
+                    tools:text="SomeGroup"/>
 
             </LinearLayout>
 

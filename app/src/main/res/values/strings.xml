@@ -664,11 +664,11 @@
     <string name="activity_restore_explanation">Enter the recovery phrase that was given to you when you signed up to restore your account.</string>
     <string name="activity_restore_seed_edit_text_hint">Enter your recovery phrase</string>
 
-    <string name="activity_display_name_title_2">Pick your display name</string>
-    <string name="activity_display_name_explanation">This will be your name when you use Session. It can be your real name, an alias, or anything else you like.</string>
-    <string name="activity_display_name_edit_text_hint">Enter a display name</string>
-    <string name="activity_display_name_display_name_missing_error">Please pick a display name</string>
-    <string name="activity_display_name_display_name_too_long_error">Please pick a shorter display name</string>
+    <string name="activity_display_name_title_2">Choice display name</string>
+    <string name="activity_display_name_explanation">This will be your name when you use AnonChain.</string>
+    <string name="activity_display_name_edit_text_hint">Choice a display name</string>
+    <string name="activity_display_name_display_name_missing_error">Please Choice a display name</string>
+    <string name="activity_display_name_display_name_too_long_error">Please Choice a shorter display name</string>
 
     <string name="activity_pn_mode_recommended_option_tag">Recommended</string>
     <string name="activity_pn_mode_no_option_picked_dialog_title">Please Pick an Option</string>
@@ -712,9 +712,9 @@
     <string name="fragment_scan_qr_code_grant_camera_access_button_title">Grant Camera Access</string>
 
     <string name="activity_create_closed_group_title">New Closed Group</string>
-    <string name="activity_create_closed_group_edit_text_hint">Enter a group name</string>
+    <string name="activity_create_closed_group_edit_text_hint">Choice a Group Name</string>
     <string name="activity_create_closed_group_empty_state_message">You don\'t have any contacts yet</string>
-    <string name="activity_create_closed_group_empty_state_button_title">Start a Session</string>
+    <string name="activity_create_closed_group_empty_state_button_title">Start a Conversation</string>
     <string name="activity_create_closed_group_group_name_missing_error">Please enter a group name</string>
     <string name="activity_create_closed_group_group_name_too_long_error">Please enter a shorter group name</string>
     <string name="activity_create_closed_group_not_enough_group_members_error">Please pick at least 1 group member</string>
@@ -888,7 +888,7 @@
     <string name="global_search_contacts_groups">Contacts and Groups</string>
     <string name="global_search_messages">Messages</string>
     <string name="activity_message_requests_title">Message Requests</string>
-    <string name="message_requests_send_notice">Sending a message to this user will automatically accept their message request and reveal your Session ID.</string>
+    <string name="message_requests_send_notice">Sending a message to this user will automatically accept their message request and reveal your AnonChain ID.</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
     <string name="message_requests_clear_all">Clear All</string>
